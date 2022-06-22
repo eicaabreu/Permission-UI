@@ -1,0 +1,14 @@
+.title {
+  font-size: 2.2rem;
+  font-weight: 900;
+}
+
+/* Utils */
+.required:after {
+  content: '*';
+  color: red;
+}
+
+.no-resize {
+  resize: none;
+}
