@@ -1,4 +1,4 @@
-# TEST.UI
+# Lottery.UI
 
 ## Build Setup
 
