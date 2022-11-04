@@ -225,6 +225,22 @@ export default class Index extends Vue {
         rowClass: 'cell-centered',
       },
       {
+        data: 'reference',
+        label: 'Referencia',
+        classList: {
+          'text-center': true,
+        },
+        rowClass: 'cell-centered',
+      },
+      {
+        data: 'zone.description',
+        label: 'Zona',
+        classList: {
+          'text-center': true,
+        },
+        rowClass: 'cell-centered',
+      },
+      {
         data: 'status',
         label: 'Estado',
         rowClass: 'cell-centered',

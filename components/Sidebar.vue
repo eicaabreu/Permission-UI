@@ -125,6 +125,10 @@ export default class Sidebar extends Vue {
         },
         {
           url: '',
+          label: 'Loterias',
+        },
+        {
+          url: '',
           label: 'Bloqueo de números',
         },
       ],
