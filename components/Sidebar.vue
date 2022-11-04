@@ -2,13 +2,13 @@
   <nav id="sidebar" class="sidebar js-sidebar">
     <div ref="sidebar" class="sidebar-content js-simplebar">
       <nuxt-link class="sidebar-brand" to="/">
-        <span class="align-middle">SIGES</span>
+        <span class="align-middle">LOTERIA</span>
       </nuxt-link>
 
       <ul class="sidebar-nav">
         <template v-for="(menu, menuIndex) in menus">
           <template v-if="menu.children">
-            <li :key="menuIndex" class="sidebar-header">
+            <li :key="menuIndex" class="sidebar-header h6">
               {{ menu.label }}
             </li>
             <li
@@ -51,16 +51,106 @@ interface Menu {
 export default class Sidebar extends Vue {
   menus: Menu[] = [
     {
-      label: 'Mantenimientos',
+      label: 'Dashboard',
       children: [
         {
-          url: '/requests',
-          label: 'Solicitudes de permisos',
+          url: '',
+          label: 'Ventas del día',
+        },
+        {
+          url: '',
+          label: 'Ventas por lotería',
         },
       ],
+      
+    },
+    {
+      label: 'Tickets',
+      children: [
+        {
+          url: '',
+          label: 'Registrar',
+        },
+        {
+          url: '',
+          label: 'Monitor de tickets',
+        },
+      ],
+      
+    },
+    {
+      label: 'Reportes',
+      children: [
+        {
+          url: '',
+          label: 'Ventas del día',
+        },
+        {
+          url: '',
+          label: 'Ventas detalladas periodo',
+        },
+        {
+          url: '',
+          label: 'Ventas resumen periodo',
+        },
+        {
+          url: '',
+          label: 'Números ganadores res',
+        },
+        {
+          url: '',
+          label: 'Números ganadores det',
+        },
+      ],
+      
+    },
+    {
+      label: 'Configuración',
+      children: [
+        {
+          url: '/point_of_sale',
+          label: 'Puntos de ventas',
+        },
+        {
+          url: '',
+          label: 'Usuarios',
+        },
+        {
+          url: '',
+          label: 'Roles',
+        },
+        {
+          url: '',
+          label: 'Zonas',
+        },
+        {
+          url: '',
+          label: 'Bloqueo de números',
+        },
+      ],
+      
+    },
+    {
+      label: 'Transacciones',
+      children: [
+        {
+          url: '',
+          label: 'Cobros',
+        },
+        {
+          url: '',
+          label: 'Pagos',
+        },
+        {
+          url: '',
+          label: 'Gastos',
+        },
+      ],
+      
     },
    
   ]
+child: any
 
   initializeSimplebar(): void {
     const sidebar = this.$refs.sidebar as HTMLElement
