@@ -2,7 +2,7 @@
   <nav id="sidebar" class="sidebar js-sidebar">
     <div ref="sidebar" class="sidebar-content js-simplebar">
       <nuxt-link class="sidebar-brand" to="/">
-        <span class="align-middle">LOTERIA</span>
+        <span class="align-middle">SOFTLOT</span>
       </nuxt-link>
 
       <ul class="sidebar-nav">
@@ -53,14 +53,7 @@ export default class Sidebar extends Vue {
     {
       label: 'Dashboard',
       children: [
-        {
-          url: '',
-          label: 'Ventas del día',
-        },
-        {
-          url: '',
-          label: 'Ventas por lotería',
-        },
+             
       ],
       
     },
@@ -84,6 +77,10 @@ export default class Sidebar extends Vue {
         {
           url: '',
           label: 'Ventas del día',
+        },
+        {
+          url: '',
+          label: 'Ventas por lotería',
         },
         {
           url: '',
