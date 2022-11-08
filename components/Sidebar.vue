@@ -61,7 +61,7 @@ export default class Sidebar extends Vue {
       label: 'Tickets',
       children: [
         {
-          url: '',
+          url: '/Games',
           label: 'Registrar',
         },
         {
@@ -92,11 +92,7 @@ export default class Sidebar extends Vue {
         },
         {
           url: '',
-          label: 'Números ganadores res',
-        },
-        {
-          url: '',
-          label: 'Números ganadores det',
+          label: 'Números ganadores',
         },
       ],
       
