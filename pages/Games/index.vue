@@ -382,17 +382,28 @@ export default class Index extends Vue {
     this.saveGameRequest.GameDetailDto.splice(index, 1)
   }
   onAddNewGameDetail(): void {
+   var istrue = false;
     var _gametype = 0;
       if(this.saveGameDetail.number.toString().length == 2){
         _gametype = 1
+        istrue = true;
       }
       else if(this.saveGameDetail.number.toString().length == 4){
         _gametype = 2
+        istrue = true;
       }
       else if(this.saveGameDetail.number.toString().length == 6){
         _gametype = 3
+        istrue = true;
       }
-   
+      if(this.saveGameDetail.number.toString().length == 3){
+       window.alert("No puede ingresar 3 numeros")   
+      }
+      if(this.saveGameDetail.number.toString().length == 5){
+       window.alert("No puede ingresar 5 numeros")   
+      }
+
+    if(istrue){
     this.saveGameDetail.lotteryTypeId.forEach(item => {
     this.saveGameRequest.GameDetailDto.push({
     lotteryTypeId: item,
@@ -404,6 +415,8 @@ export default class Index extends Vue {
     })
     console.log(this.saveGameRequest.GameDetailDto)
     });
+   }
+    
     
   }
 
