@@ -90,6 +90,8 @@
                   v-model="saveGameDetail.amount"
                   type="number"
                   class="form-control"
+                  maxlength="6"
+                  minlength="2"
                   required
                 />
               </div>
