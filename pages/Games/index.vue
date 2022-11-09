@@ -397,10 +397,16 @@ export default class Index extends Vue {
         istrue = true;
       }
       if(this.saveGameDetail.number.toString().length == 3){
-       window.alert("No puede ingresar 3 numeros")   
+       window.alert("No puede ingresar 3 digitos")   
       }
       if(this.saveGameDetail.number.toString().length == 5){
-       window.alert("No puede ingresar 5 numeros")   
+       window.alert("No puede ingresar 5 digitos")   
+      }
+      if(this.saveGameDetail.number.toString().length <= 1){
+       window.alert("No puede ingresar menos de 2 digitos")   
+      }
+      if(this.saveGameDetail.number.toString().length > 6){
+       window.alert("No puede ingresar mas de 6 digitos")   
       }
 
     if(istrue){
