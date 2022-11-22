@@ -396,6 +396,9 @@ export default class Index extends Vue {
         _gametype = 3
         istrue = true;
       }
+      if(this.saveGameDetail.amount <= 0){
+        window.alert("Debe ingresar un monto") 
+      }
       if(this.saveGameDetail.number.toString().length == 3){
        window.alert("No puede ingresar 3 digitos")   
       }
@@ -409,7 +412,7 @@ export default class Index extends Vue {
        window.alert("No puede ingresar mas de 6 digitos")   
       }
 
-    if(istrue){
+    if(istrue && this.saveGameDetail.amount > 0){
     this.saveGameDetail.lotteryTypeId.forEach(item => {
     this.saveGameRequest.GameDetailDto.push({
     lotteryTypeId: item,
@@ -419,15 +422,19 @@ export default class Index extends Vue {
     number: this.saveGameDetail.number,
     amount: this.saveGameDetail.amount,
     })
+   
     console.log(this.saveGameRequest.GameDetailDto)
     });
    }
-    
-    
+    this.saveGameDetail.lotteryTypeId = [],
+    this.saveGameDetail.amount = 0,
+    this.saveGameDetail.gameTypeId = 0,
+    this.saveGameDetail.number = 0
   }
 
   async onSaveHandler(): Promise<void> {
-    this.isSaving = true
+    this.isSaving = true;
+    var dto = true;
     try {
       if (this.saveGameRequest.id) {
         await this.$axios.put(
@@ -436,11 +443,20 @@ export default class Index extends Vue {
         )
       } else {
         console.log(this.saveGameRequest)
-        await this.$axios.post('/Games', this.saveGameRequest)
+       
+        if(this.saveGameRequest.GameDetailDto.length <= 0){
+          window.alert("Debe agregar una jugada") 
+          dto = false; 
+        }
+        if(dto){
+          await this.$axios.post('/Games', this.saveGameRequest)
+        }
+       
       }
-
+      if(dto){
       this.$refs.dataTable?.refresh()
       this.toggleSaveModal()
+      }
     } finally {
       this.isSaving = false
     }
