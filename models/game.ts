@@ -4,6 +4,7 @@ export interface GameDto {
     status: boolean
     quantity: number
     gameDate?: string
+    gameDetailDto: GameDetailDto[] 
    }
 
    export interface GameDetailDto {
@@ -11,6 +12,7 @@ export interface GameDto {
     lotteryTypeId: number
     lotteryName?: string
     gameTypeId: number
+    gameId?: number
     gameTypeName?: string
     number: number
     amount: number
@@ -24,6 +26,7 @@ export interface GameDto {
     gameTypeId: number
     number: number
     amount: number
+    totalAmount?: number
 
    }
    

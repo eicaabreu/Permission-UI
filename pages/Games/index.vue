@@ -36,7 +36,7 @@
                   id="pointOfSaleId"
                   v-model="saveGameRequest.pointOfSaleId"
                   class="form-select"
-                  required
+                  
                 >
                   <option
                     v-for="(point, index) in pointOfSale"
@@ -58,7 +58,7 @@
                   v-model="saveGameDetail.lotteryTypeId"
                   class="form-select"
                   multiple
-                  required
+                  
                 >
                   <option
                     v-for="(lot, index) in lotteryType"
@@ -73,17 +73,17 @@
             
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-3">
                 <label for="number" class="col-form-label required">Numero</label>
                 <input
                   id="number"
                   v-model="saveGameDetail.number"
                   type="text"
                   class="form-control"
-                  required
+                  
                 />
               </div>
-              <div class="col-4">
+              <div class="col-3">
                 <label for="amount" class="col-form-label required">Monto</label>
                 <input
                   id="amount"
@@ -92,7 +92,7 @@
                   class="form-control"
                   maxlength="6"
                   minlength="2"
-                  required
+                  
                 />
               </div>
               <!-- <div class="col-3">
@@ -117,11 +117,21 @@
               </div> -->
            
                 
-              <div class="col-4">
+              <div class="col-3">
                 <label for="amountPerGame" class="col-form-label">Monto maximo</label>
                 <input
                   id="amountPerGame"
                   v-model="saveGameDetail.amount"
+                  type="number"
+                  class="form-control"
+                  disabled
+                />
+              </div>
+              <div class="col-3">
+                <label for="totalAmount" class="col-form-label">Monto total</label>
+                <input
+                  id="totalAmount"
+                  v-model="saveGameDetail.totalAmount"
                   type="number"
                   class="form-control"
                   disabled
@@ -244,6 +254,8 @@ import { GameDto, SaveGameRequest,SaveGameDetail, GameDetailDto } from '~/models
 import { CatalogDto } from '~/models/common'
 import { POFDto } from '~/models/point_of_sale'
 import Swal from 'sweetalert2'
+import { json } from 'body-parser'
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants'
 
 @Component({
   name: 'PointOfSaleIndexPage',
@@ -268,12 +280,13 @@ export default class Index extends Vue {
     gameDate: '',
     GameDetailDto: []
   }
-
+  total: number = 0;
   saveGameDetail : SaveGameDetail = {
     lotteryTypeId: [],
     gameTypeId: 0,
     number: 0,
-    amount: 0
+    amount: 0,
+   
 
   }
 
@@ -340,6 +353,7 @@ export default class Index extends Vue {
         innerHTML: '<i class="fas fa-book"></i>',
         click: (item: GameDto) => {
           this.toggleSaveModal(item)
+          console.log(item)
         },
       },
       {
@@ -361,6 +375,7 @@ export default class Index extends Vue {
 
   toggleSaveModal(item: GameDto | undefined = undefined): void {
     this.saveGameRequest.id = item?.id
+    this.saveGameRequest.pointOfSaleId = item?.pointOfSaleId ?? 0
     this.saveModal?.toggle()
   }
   async loadPointOfSale(): Promise<void> {
@@ -380,10 +395,12 @@ export default class Index extends Vue {
 
   onRemoveGameDetailsRange(index: number): void {
     this.saveGameRequest.GameDetailDto.splice(index, 1)
+  
   }
   onAddNewGameDetail(): void {
    var istrue = false;
     var _gametype = 0;
+   
       if(this.saveGameDetail.number.toString().length == 2){
         _gametype = 1
         istrue = true;
@@ -399,6 +416,9 @@ export default class Index extends Vue {
       if(this.saveGameDetail.amount <= 0){
         window.alert("Debe ingresar un monto") 
       }
+      if(this.saveGameDetail.lotteryTypeId.length <= 0){
+        window.alert("Debe elegir una loteria") 
+      }
       if(this.saveGameDetail.number.toString().length == 3){
        window.alert("No puede ingresar 3 digitos")   
       }
@@ -411,6 +431,22 @@ export default class Index extends Vue {
       if(this.saveGameDetail.number.toString().length > 6){
        window.alert("No puede ingresar mas de 6 digitos")   
       }
+    // console.log(this.saveGameRequest.GameDetailDto)
+    // console.log( this.saveGameDetail)
+
+    var numero = this.saveGameDetail.number
+    var tipo = _gametype
+   
+    this.saveGameRequest.GameDetailDto.forEach(i => {
+    this.saveGameDetail.lotteryTypeId.forEach(item => {
+      console.log(i)
+        if(numero == i.number &&  tipo == i.gameTypeId && item == i.lotteryTypeId){
+           window.alert("No puede ingresar la misma jugada") 
+           istrue = false;  
+         }
+    })
+       
+       })
 
     if(istrue && this.saveGameDetail.amount > 0){
     this.saveGameDetail.lotteryTypeId.forEach(item => {
@@ -421,9 +457,12 @@ export default class Index extends Vue {
     gameTypeName: this.gameType.find((x) => x.id == _gametype)?.name ?? '',
     number: this.saveGameDetail.number,
     amount: this.saveGameDetail.amount,
-    })
    
-    console.log(this.saveGameRequest.GameDetailDto)
+    }) 
+
+    this.total = Number(this.total) + Number(this.saveGameDetail.amount)
+    this.saveGameDetail.totalAmount = this.total;
+ 
     });
    }
     this.saveGameDetail.lotteryTypeId = [],
@@ -431,6 +470,26 @@ export default class Index extends Vue {
     this.saveGameDetail.gameTypeId = 0,
     this.saveGameDetail.number = 0
   }
+  onAddGameDetail(item: GameDto): void {
+    console.log(item)
+  //   this.saveGameRequest.GameDetailDto.push({
+  //   lotteryTypeId: item.gameDetailDto.find((x) => x.gameId == item.id)?.lotteryTypeId ?? 0,
+  //   //lotteryName: this.lotteryType.find((x) => x.id == item)?.name ?? '',
+  //   gameTypeId: item.gameDetailDto.find((x) => x.gameId == item.id)?.gameTypeId ?? 0,
+  //  // gameTypeName: this.gameType.find((x) => x.id == _gametype)?.name ?? '',
+  //   number: item.gameDetailDto.find((x) => x.gameId == item.id)?.number ?? 0,
+  //   amount: item.gameDetailDto.find((x) => x.gameId == item.id)?.amount ?? 0,
+  //   })
+   
+    console.log(this.saveGameRequest.GameDetailDto)
+
+   
+    this.saveGameDetail.lotteryTypeId = [],
+    this.saveGameDetail.amount = 0,
+    this.saveGameDetail.gameTypeId = 0,
+    this.saveGameDetail.number = 0
+  }
+
 
   async onSaveHandler(): Promise<void> {
     this.isSaving = true;
@@ -442,7 +501,6 @@ export default class Index extends Vue {
           this.saveGameRequest
         )
       } else {
-        console.log(this.saveGameRequest)
        
         if(this.saveGameRequest.GameDetailDto.length <= 0){
           window.alert("Debe agregar una jugada") 
@@ -450,6 +508,11 @@ export default class Index extends Vue {
         }
         if(dto){
           await this.$axios.post('/Games', this.saveGameRequest)
+          this.saveGameDetail.lotteryTypeId = [],
+          this.saveGameDetail.amount = 0,
+          this.saveGameDetail.gameTypeId = 0,
+          this.saveGameDetail.number = 0,
+          this.saveGameRequest.GameDetailDto = []
         }
        
       }
