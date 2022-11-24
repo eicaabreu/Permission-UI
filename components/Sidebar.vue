@@ -113,7 +113,7 @@ export default class Sidebar extends Vue {
           label: 'Roles',
         },
         {
-          url: '',
+          url: '/zones',
           label: 'Zonas',
         },
         {
