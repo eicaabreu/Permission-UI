@@ -1,4 +1,4 @@
-const apiUrl = process.env.API_URL || 'https://localhost:7021'
+const apiUrl = process.env.API_URL || 'https://localhost:7182/api'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode

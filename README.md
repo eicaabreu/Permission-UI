@@ -1,4 +1,4 @@
-# Lottery.UI
+# Permission.UI
 
 ## Build Setup
 

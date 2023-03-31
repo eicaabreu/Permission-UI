@@ -2,7 +2,7 @@
   <nav id="sidebar" class="sidebar js-sidebar">
     <div ref="sidebar" class="sidebar-content js-simplebar">
       <nuxt-link class="sidebar-brand" to="/">
-        <span class="align-middle">SOFTLOT</span>
+        <span class="align-middle"></span>
       </nuxt-link>
 
       <ul class="sidebar-nav">
@@ -51,101 +51,16 @@ interface Menu {
 export default class Sidebar extends Vue {
   menus: Menu[] = [
     {
-      label: 'Dashboard',
-      children: [
-             
-      ],
-      
-    },
-    {
-      label: 'Tickets',
+      label: 'Permisos',
       children: [
         {
-          url: '/Games',
-          label: 'Registrar',
+          url: '/Permission',
+          label: 'Solicitudes',
         },
-        {
-          url: '',
-          label: 'Monitor de tickets',
-        },
+        
       ],
       
-    },
-    {
-      label: 'Reportes',
-      children: [
-        {
-          url: '',
-          label: 'Ventas del día',
-        },
-        {
-          url: '',
-          label: 'Ventas por lotería',
-        },
-        {
-          url: '',
-          label: 'Ventas detalladas periodo',
-        },
-        {
-          url: '',
-          label: 'Ventas resumen periodo',
-        },
-        {
-          url: '',
-          label: 'Números ganadores',
-        },
-      ],
-      
-    },
-    {
-      label: 'Configuración',
-      children: [
-        {
-          url: '/point_of_sale',
-          label: 'Puntos de ventas',
-        },
-        {
-          url: '',
-          label: 'Usuarios',
-        },
-        {
-          url: '',
-          label: 'Roles',
-        },
-        {
-          url: '/zones',
-          label: 'Zonas',
-        },
-        {
-          url: '',
-          label: 'Loterias',
-        },
-        {
-          url: '',
-          label: 'Bloqueo de números',
-        },
-      ],
-      
-    },
-    {
-      label: 'Transacciones',
-      children: [
-        {
-          url: '',
-          label: 'Cobros',
-        },
-        {
-          url: '',
-          label: 'Pagos',
-        },
-        {
-          url: '',
-          label: 'Gastos',
-        },
-      ],
-      
-    },
-   
+      }
   ]
 child: any
 

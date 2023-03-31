@@ -189,7 +189,7 @@ export default class DataTable extends Vue {
         targets: -1,
         createdCell: (td: HTMLTableCellElement, _: any, rowData: never) => {
           const div = document.createElement('div')
-          div.className = 'cell-centered'
+          div.className = 'text-center'
           div.innerHTML = td.innerHTML
 
           actions.forEach((action) => {
